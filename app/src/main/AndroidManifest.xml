@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- গিটহাব থেকে ফাইল ডাউনলোডের জন্য ইন্টারনেট -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+    <!-- স্ক্রিন অফ থাকলেও প্রসেসর চালু রাখার জন্য -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- ফোরগ্রাউন্ড সার্ভিস চালানোর জন্য -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />  
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/my_logo"
+        android:label="PDF Processor"
+        android:roundIcon="@drawable/my_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        
+        <!-- অ্যাপ চালুর সময় MainActivity-কে ওপেন করার নির্দেশ -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- ভবিষ্যতে আমরা যে ব্যাকগ্রাউন্ড সার্ভিসটি বানাবো, তার ডিক্লারেশন -->
+        <service 
+            android:name=".PdfProcessService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+        
+        <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths" />
+        </provider>
+            
+    </application>
+</manifest>
