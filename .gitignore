@@ -1,11 +1,20 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Gradle
+.gradle/
+build/
+**/build/
 
-# Ignore ACS editor directory
-.acside
+# ACS Editor / IDE
+.acside/
+.kotlin/
+.idea/
+*.iml
+local.properties
 
-# Ignore Kotlin directory
-.kotlin
+# Android Output
+*.apk
+*.aab
+*.ap_
 
-# Ignore Gradle build output directory
-build
+# Exclude text notes
+[Aa].[Tt][Xx][Tt]
+*.log

@@ -12,13 +12,12 @@ import android.graphics.pdf.PdfRenderer
 import android.os.Build
 import android.os.Environment
 import android.os.IBinder
-import android.os.ParcelFileDescriptor
 import android.os.PowerManager
+import android.os.ParcelFileDescriptor
 import androidx.core.app.NotificationCompat
 import com.googlecode.tesseract.android.TessBaseAPI
 import java.io.File
 import java.io.FileOutputStream
-import java.net.URL
 
 class PdfProcessService : Service() {
 
@@ -66,10 +65,13 @@ class PdfProcessService : Service() {
             val languages = listOf("eng", "ben", "ara", "urd")
             for (lang in languages) {
                 val langFile = File(tessDir, "$lang.traineddata")
+                // ইন্টারনেট থেকে ডাউনলোড করার বদলে assets থেকে ফাইলগুলো লোকাল ফোল্ডারে কপি করা হচ্ছে
                 if (!langFile.exists()) {
-                    TerminalBridge.logListener?.invoke("Downloading $lang language pack...")
-                    URL("https://github.com/tesseract-ocr/tessdata_fast/raw/main/$lang.traineddata").openStream().use { input ->
-                        FileOutputStream(langFile).use { output -> input.copyTo(output) }
+                    TerminalBridge.logListener?.invoke("Extracting $lang engine...")
+                    assets.open("tessdata/$lang.traineddata").use { input ->
+                        FileOutputStream(langFile).use { output -> 
+                            input.copyTo(output) 
+                        }
                     }
                 }
             }
@@ -80,7 +82,6 @@ class PdfProcessService : Service() {
             
             val tess = TessBaseAPI()
             tess.init(filesDir.absolutePath, "eng+ben+ara+urd")
-            // লেআউট আরও নিখুঁত করার জন্য PSM মোড পরিবর্তন করা হলো
             tess.pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
             
             val extractedText = StringBuilder()
@@ -109,12 +110,10 @@ class PdfProcessService : Service() {
 
             TerminalBridge.logListener?.invoke("Saving File...")
             
-            // সরাসরি ইউজারের মেইন Download ফোল্ডারে সেভ করা
             val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             val finalFile = File(downloadsDir, "$finalDocumentName.doc")
             finalFile.writeText(extractedText.toString())
             
-            // HTML কে ফাইল রেডি হওয়ার সিগন্যাল পাঠানো
             TerminalBridge.logListener?.invoke("FINISH:${finalFile.absolutePath}")
             showFinalNotification("Success!", "Saved as $finalDocumentName.doc in Downloads.")
 
