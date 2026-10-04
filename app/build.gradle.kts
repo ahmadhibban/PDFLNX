@@ -30,7 +30,7 @@ android {
     }
 }
 
-// 🔥 এই মাস্টার কিলার ব্লকটি ডুপ্লিকেট ফাইলটিকে চিরতরে ব্লক করে দেবে 🔥
+// Exclude OpenMP flavor to avoid duplicate native libraries
 configurations.all {
     exclude(group = "cz.adaptech.tesseract4android", module = "tesseract4android-openmp")
 }
@@ -41,6 +41,6 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     
-    // আপনার মাস্টার ইঞ্জিন
+    // Tesseract 4 Android OCR Engine
     implementation("cz.adaptech:tesseract4android:4.3.0")
 }

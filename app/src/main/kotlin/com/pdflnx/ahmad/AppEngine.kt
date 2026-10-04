@@ -1,5 +1,10 @@
 package com.pdflnx.ahmad
 
+/**
+ * AppEngine - Web UI Controller & Native Bridge
+ * Author: Ahmad Hibban
+ */
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -31,7 +36,7 @@ class AppEngine(private val activity: Activity) {
             ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
         }
 
-        // স্ট্যাটাস বার কালার ফিক্স (ডার্ক থিমের সাথে মেলানো)
+        // Configure status bar color to match dark theme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -59,7 +64,7 @@ class AppEngine(private val activity: Activity) {
         }
     }
 
-    // HTML এর সাথে যোগাযোগের ইন্টারফেস
+    // JavaScript Interface for WebView communication
     private inner class WebAppInterface {
         @JavascriptInterface
         fun pickPdfFile() {
@@ -102,7 +107,7 @@ class AppEngine(private val activity: Activity) {
             }
         }
 
-        // HTML থেকে অ্যাপ ক্লোজ করার কমান্ড
+        // Close application from WebView
         @JavascriptInterface
         fun exitApp() {
             activity.runOnUiThread {

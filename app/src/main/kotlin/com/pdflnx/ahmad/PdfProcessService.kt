@@ -1,5 +1,10 @@
 package com.pdflnx.ahmad
 
+/**
+ * PdfProcessService - Background OCR & Text Extraction Service
+ * Author: Ahmad Hibban
+ */
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -65,7 +70,7 @@ class PdfProcessService : Service() {
             val languages = listOf("eng", "ben", "ara", "urd")
             for (lang in languages) {
                 val langFile = File(tessDir, "$lang.traineddata")
-                // ইন্টারনেট থেকে ডাউনলোড করার বদলে assets থেকে ফাইলগুলো লোকাল ফোল্ডারে কপি করা হচ্ছে
+                // Copy trained models from assets into app storage if not already present
                 if (!langFile.exists()) {
                     TerminalBridge.logListener?.invoke("Extracting $lang engine...")
                     assets.open("tessdata/$lang.traineddata").use { input ->

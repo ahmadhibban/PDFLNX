@@ -53,6 +53,11 @@ PDFLNX/
 2. Open the project in Android Studio.
 3. Sync Gradle and build the APK.
 
-## License
+## 👤 Author
 
-This project is licensed under the Apache License 2.0 or standard open-source terms.
+**Ahmad Hibban**
+- GitHub: [@ahmadhibban](https://github.com/ahmadhibban)
+
+## 📄 License
+
+This project is open-source under the Apache License 2.0. Copyright © Ahmad Hibban.

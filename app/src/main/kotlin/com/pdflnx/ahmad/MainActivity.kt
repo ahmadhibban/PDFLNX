@@ -1,5 +1,10 @@
 package com.pdflnx.ahmad
 
+/**
+ * PDFLNX - Offline PDF OCR & Text Extraction Android App
+ * Author: Ahmad Hibban
+ */
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         appEngine.handleActivityResult(requestCode, resultCode, data)
     }
 
-    // ব্যাক বাটন চাপলে ইঞ্জিনকে সরাসরি সিগন্যাল দেওয়া হলো
+    // Forward back press event to web engine
     override fun onBackPressed() {
         appEngine.triggerBackPress() 
     }
