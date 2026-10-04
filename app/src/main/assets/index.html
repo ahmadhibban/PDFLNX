@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PDF Engine Pro</title>
+    <title>PDFLNX - Offline PDF OCR</title>
+    <meta name="author" content="Ahmad Hibban">
     
     <script src="tailwind.js"></script>
 
@@ -31,7 +32,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Start Extraction
         </button>
         
-        <!-- 🔥 এখানে id="spinner" এবং mx-auto যুক্ত করা হয়েছে যাতে ক্র্যাশ না করে এবং মাঝখানে থাকে 🔥 -->
+        <!-- Progress indicator area -->
         <div id="progressArea" class="hidden mt-6 p-5 bg-black/20 rounded-2xl border border-white/5">
             <div id="spinner" class="spinner w-11 h-11 mb-4 mx-auto"></div>
             <div id="statusText" class="text-sm text-[#a8b2d1] tracking-wide">System Ready...</div>
@@ -72,7 +73,7 @@
             document.getElementById("iconContainer").innerHTML = svgProcessing;
             document.getElementById("progressArea").style.display = "block";
             
-            // স্পিনারটা আবার দৃশ্যমান করা হচ্ছে (যদি আগের কাজ থেকে হাইড হয়ে থাকে)
+            // Ensure spinner is visible
             document.getElementById("spinner").style.display = "block"; 
             
             document.getElementById("subTitle").innerText = "Engine is running in background...";
